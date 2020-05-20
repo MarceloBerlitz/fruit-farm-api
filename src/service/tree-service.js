@@ -12,12 +12,12 @@ module.exports = {
             res.send(result);
         }).catch(err => { 
             res.status(500); 
-            res.send(err) 
+            res.send(err);
         })
     },
 
     getAll: async (req, res) => {
-        trees = await treeData.find();
+        const trees = await treeData.find();
         Promise.all(trees.map(async tree => {
            tree.species = await speciesDb.findById(tree.species)
         })).then(() => {
@@ -29,6 +29,25 @@ module.exports = {
         tree = await treeData.findById(req.params.id);
         tree.species = await speciesDb.findById(tree.species);
         res.send(tree);
+    },
+
+    edit: async (req, res) => {
+        const tree = await treeData.findById(req.params.id);
+
+        tree.description = req.body.description;
+        tree.date = req.body.date;
+        tree.species = req.body.species;
+
+        await tree.save();
+
+        res.send(tree)
+    },
+
+    delete: (req, res) => {
+        treeData.findById(req.params.id).deleteOne().then(() => {
+            res.status(204);
+            res.send();
+        })
     }
 
 }

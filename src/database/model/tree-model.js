@@ -2,8 +2,8 @@ const db = require('../index');
 const Schema = require('mongoose').Schema;
 
 const treeSchema = { 
-    description: String,
-    date: String,
+    description: { type: String, required : true },
+    date: { type: String, required: true },
     species: { type: Schema.Types.ObjectId, ref: 'Species' }
 }
 

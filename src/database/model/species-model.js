@@ -1,7 +1,7 @@
 const db = require('../index');
 
 const speciesSchema = { 
-    description: String
+    description: { type: String, required: true }
 }
 
 const Species = db.model('Species', speciesSchema);

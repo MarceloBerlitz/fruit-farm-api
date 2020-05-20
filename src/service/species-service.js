@@ -15,7 +15,7 @@ module.exports = {
     },
 
     delete: (req, res) => {
-        speciesDb.findById(req.params.id).remove().then(result => {
+        speciesDb.findById(req.params.id).deleteOne().then(() => {
             res.status(204);
             res.send();
         })
