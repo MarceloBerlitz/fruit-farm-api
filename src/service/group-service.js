@@ -18,11 +18,13 @@ module.exports = {
 
     get: (req, res) => {
         Group.findById(req.params.id)
+            .lean()
             .then(async group => {
 
-                group.crops = await Promise.all(group.trees
-                    .map(tree => Crop.find({ tree: tree }))
-                    .reduce((acc, cur) => [ ...acc, ...cur ], []));
+                const crops = await Promise.all(group.trees
+                    .map(tree => Crop.find({ tree: tree })));
+
+                group.crops = crops.reduce((acc, cur) => [ ...acc, ...cur ], []);
 
                 group.trees = await Promise.all(group.trees.map(tree => {
                     return Tree.findById(tree)
