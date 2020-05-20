@@ -34,10 +34,20 @@ module.exports = {
     },
 
     delete: (req, res) => {
-        Crop.findById(req.params.id).deleteOne().then(() => {
-            res.status(204);
-            res.send();
-        })
+        Crop.findById(req.params.id)
+            .deleteOne()
+            .then(result => {
+                if (result.deletedCount) {
+                    res.status(204);
+                    res.send();
+                } else {
+                    res.status(404);
+                    res.send({ message: 'Crop not found.' });
+                }
+            }).catch(err => {
+                res.status(500);
+                res.send(err);
+            });
     }
 
 }

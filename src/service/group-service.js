@@ -45,10 +45,20 @@ module.exports = {
     },
 
     delete: (req, res) => {
-        Group.findById(req.params.id).deleteOne().then(() => {
-            res.status(204);
-            res.send();
-        });
+        Group.findById(req.params.id)
+            .deleteOne()
+            .then(result => {
+                if (result.deletedCount) {
+                    res.status(204);
+                    res.send();
+                } else {
+                    res.status(404);
+                    res.send({ message: 'Group not found.' });
+                }
+            }).catch(err => {
+                res.status(500);
+                res.send(err);
+            });
     },
 
     setTrees: (req, res) => {

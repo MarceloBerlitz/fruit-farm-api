@@ -50,10 +50,20 @@ module.exports = {
     },
 
     delete: (req, res) => {
-        Tree.findById(req.params.id).deleteOne().then(() => {
-            res.status(204);
-            res.send();
-        })
+        Tree.findById(req.params.id)
+            .deleteOne()
+            .then(result => {
+                if (result.deletedCount) {
+                    res.status(204);
+                    res.send();
+                } else {
+                    res.status(404);
+                    res.send({ message: 'Tree not found.' });
+                }
+            }).catch(err => {
+                res.status(500);
+                res.send(err);
+            });
     }
 
 }
