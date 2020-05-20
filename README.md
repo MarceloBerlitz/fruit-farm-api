@@ -1,2 +1,2 @@
 # fruit-farm 
-[![CircleCI](https://circleci.com/gh/MarceloBerlitz/fruit-farm/tree/master.svg?style=svg)](https://circleci.com/gh/MarceloBerlitz/fruit-farm/tree/master)
+[![CircleCI](https://circleci.com/gh/MarceloBerlitz/fruit-farm/tree/master.svg?style=svg&circle-token=01c3b1f2bd2046017b7b38547c59f2f74c808499)](https://circleci.com/gh/MarceloBerlitz/fruit-farm/tree/master)
