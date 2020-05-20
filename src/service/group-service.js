@@ -1,25 +1,25 @@
-const treeData = require('../database/model/tree-model');
-const groupData = require('../database/model/group-model');
+const Tree = require('../database/model/tree-model');
+const Group = require('../database/model/group-model');
 
 module.exports = {
 
     create: (req, res) => {
-        new groupData(req.body).save().then(result => {
+        new Group(req.body).save().then(result => {
             res.send(result);
         })
     },
 
     getAll: (req, res) => {
-        groupData.find().then(result => {
+        Group.find().then(result => {
             res.send(result);
         });
     },
 
     get: (req, res) => {
-        groupData.findById(req.params.id)
+        Group.findById(req.params.id)
             .then(async group => {
                 group.trees = await Promise.all(group.trees.map(tree => {
-                    return treeData.findById(tree)
+                    return Tree.findById(tree)
                 }));
 
                 res.send(group);
@@ -27,9 +27,18 @@ module.exports = {
     },
 
     delete: (req, res) => {
-        groupData.findById(req.params.id).deleteOne().then(() => {
+        Group.findById(req.params.id).deleteOne().then(() => {
             res.status(204);
             res.send();
         })
+    },
+
+    setTrees: (req, res) => {
+        const group = Group.findById(req.params.id);
+
+        group.trees = req.body.trees;
+        group.save();
+
+        res.send(group);
     }
 }

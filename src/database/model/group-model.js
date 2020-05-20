@@ -7,6 +7,4 @@ const groupSchema = {
     trees: [{ type: Schema.Types.ObjectId, ref: 'Tree' }]
 }
 
-const Group = db.model('Group', groupSchema);
-
-module.exports = Group;
+module.exports = db.model('Group', groupSchema);

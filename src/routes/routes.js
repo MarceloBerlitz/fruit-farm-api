@@ -1,5 +1,4 @@
 const express = require('express');
-
 const router = express.Router();
 
 const speciesService = require('../service/species-service')
@@ -26,6 +25,7 @@ router.post('/groups', groupService.create)
       .get('/groups', groupService.getAll)
       .get('/groups/:id', groupService.get)
       .delete('/groups/:id', groupService.delete)
+      .patch('/groups/:id/trees', groupService.setTrees)
 
 // crops
 

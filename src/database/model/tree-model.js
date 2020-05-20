@@ -7,6 +7,4 @@ const treeSchema = {
     species: { type: Schema.Types.ObjectId, ref: 'Species' }
 }
 
-const Tree = db.model('Tree', treeSchema);
-
-module.exports = Tree;
+module.exports = db.model('Tree', treeSchema);

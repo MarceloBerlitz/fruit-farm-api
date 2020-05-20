@@ -4,6 +4,4 @@ const speciesSchema = {
     description: { type: String, required: true }
 }
 
-const Species = db.model('Species', speciesSchema);
-
-module.exports = Species;
+module.exports = db.model('Species', speciesSchema);

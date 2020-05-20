@@ -1,6 +1,5 @@
-const speciesDb = require('../database/model/species-model');
-
-const treeData = require('../database/model/tree-model');
+const Species = require('../database/model/species-model');
+const Tree = require('../database/model/tree-model');
 
 module.exports = {
 
@@ -8,7 +7,7 @@ module.exports = {
         // const species = speciesData.findById(req.body.species);
         //to do: validate species
 
-        new treeData(req.body).save().then(result => {
+        new Tree(req.body).save().then(result => {
             res.send(result);
         }).catch(err => { 
             res.status(500); 
@@ -17,22 +16,22 @@ module.exports = {
     },
 
     getAll: async (req, res) => {
-        const trees = await treeData.find();
+        const trees = await Tree.find();
         Promise.all(trees.map(async tree => {
-           tree.species = await speciesDb.findById(tree.species)
+           tree.species = await Species.findById(tree.species)
         })).then(() => {
             res.send(trees);
         });
     },
 
     get: async (req, res) => {
-        tree = await treeData.findById(req.params.id);
-        tree.species = await speciesDb.findById(tree.species);
+        tree = await Tree.findById(req.params.id);
+        tree.species = await Species.findById(tree.species);
         res.send(tree);
     },
 
     edit: async (req, res) => {
-        const tree = await treeData.findById(req.params.id);
+        const tree = await Tree.findById(req.params.id);
 
         tree.description = req.body.description;
         tree.date = req.body.date;
@@ -44,7 +43,7 @@ module.exports = {
     },
 
     delete: (req, res) => {
-        treeData.findById(req.params.id).deleteOne().then(() => {
+        Tree.findById(req.params.id).deleteOne().then(() => {
             res.status(204);
             res.send();
         })

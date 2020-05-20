@@ -8,6 +8,4 @@ const cropSchema = {
     tree: { type: Schema.Types.ObjectId, ref: 'Species' }
 }
 
-const Crop = db.model('Crop', cropSchema);
-
-module.exports = Crop;
+module.exports = db.model('Crop', cropSchema);
