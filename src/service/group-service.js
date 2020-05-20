@@ -6,7 +6,7 @@ module.exports = {
     create: (req, res) => {
         new Group(req.body).save().then(result => {
             res.send(result);
-        })
+        });
     },
 
     getAll: (req, res) => {
@@ -23,14 +23,14 @@ module.exports = {
                 }));
 
                 res.send(group);
-            })
+            });
     },
 
     delete: (req, res) => {
         Group.findById(req.params.id).deleteOne().then(() => {
             res.status(204);
             res.send();
-        })
+        });
     },
 
     setTrees: (req, res) => {

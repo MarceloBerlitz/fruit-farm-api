@@ -12,14 +12,14 @@ module.exports = {
     getAll: (req, res) => {
         Species.find().then(result => {
             res.send(result);
-        })
+        });
     },
 
     delete: (req, res) => {
         Species.findById(req.params.id).deleteOne().then(() => {
             res.status(204);
             res.send();
-        })
+        });
     }
 
 }
