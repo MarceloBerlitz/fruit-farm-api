@@ -5,13 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "author": "Marcelo Berlitz",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "mongoose": "^5.9.15"
+    "body-parser": "1.19.0",
+    "express": "4.17.1",
+    "mongoose": "5.9.15"
+  },
+  "devDependencies": {
+    "jasmine": "3.5.0"
   }
 }
