@@ -1,4 +1,6 @@
 const Species = require('../database/model/species-model');
+const Tree = require('../database/model/tree-model');
+const Crop = require('../database/model/crop-model');
 
 module.exports = {
 
@@ -12,6 +14,20 @@ module.exports = {
     getAll: (req, res) => {
         Species.find().then(result => {
             res.send(result);
+        });
+    },
+
+    get: (req, res) => {
+
+        const id = req.params.id;
+
+        Species.findById(id).then(async species => {
+            species.trees = await Tree.find({ species: id });
+            species.crops = await Promise.all(species.trees
+                .map(tree => Crop.find({ tree: tree._id }))
+                .reduce((acc, cur) => [ ...acc, ...cur ], []));
+
+            res.send(species);
         });
     },
 

@@ -8,7 +8,10 @@ mongoose.connect('mongodb://fruit-farm-shard-00-00-ukqma.gcp.mongodb.net:27017,f
             user: process.env.MONGO_USER,
             password: process.env.MONGO_PASSWORD
         }
-    }).catch(error => {
+    }).then(() => {
+        console.log('Connected to MongoDB')
+    })
+    .catch(error => {
         console.error(error);
     });
 

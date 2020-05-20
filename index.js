@@ -13,5 +13,5 @@ app.use(bodyParser.json());
 app.use(require('./src/routes/routes'));
 
 app.listen(port, () => {
-    console.log("listen on port " + port);
+    console.log("listening on port " + port);
 });
