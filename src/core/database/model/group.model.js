@@ -1,4 +1,4 @@
-const db = require('../index');
+const db = require('../db');
 const Schema = require('mongoose').Schema;
 
 const groupSchema = { 

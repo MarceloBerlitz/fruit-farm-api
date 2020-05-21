@@ -1,4 +1,4 @@
-module.exports = (Crop) => ({
+module.exports = Crop => ({
 
     create: (req, res) => {
         new Crop(req.body).save().then(result => {
