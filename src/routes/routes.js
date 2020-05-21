@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const speciesService = require('../service/species-service');
-const treeService = require('../service/tree-service');
-const groupService = require('../service/group-service');
-const cropService = require('../service/crop-service');
+const services = require('../service/service-module');
+
+const speciesService = services.speciesService;
+const treeService = services.treeService;
+const groupService = services.groupService;
+const cropService = services.cropService;
 
 // species
 

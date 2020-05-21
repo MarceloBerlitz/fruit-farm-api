@@ -1,8 +1,4 @@
-const Tree = require('../database/model/tree-model');
-const Crop = require('../database/model/crop-model');
-const Group = require('../database/model/group-model');
-
-module.exports = {
+module.exports = (Tree, Crop, Group) => ({
 
     create: (req, res) => {
         new Group(req.body).save().then(result => {
@@ -71,4 +67,4 @@ module.exports = {
 
         res.send(group);
     }
-}
+});

@@ -1,9 +1,4 @@
-const Species = require('../database/model/species-model');
-const Tree = require('../database/model/tree-model');
-const Group = require('../database/model/group-model');
-const Crop = require('../database/model/crop-model');
-
-module.exports = {
+module.exports = (Species, Tree, Crop, Group) => ({
 
     create: (req, res) => {
         // const species = speciesData.findById(req.body.species);
@@ -66,4 +61,4 @@ module.exports = {
             });
     }
 
-}
+});

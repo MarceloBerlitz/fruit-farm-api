@@ -1,8 +1,4 @@
-const Species = require('../database/model/species-model');
-const Tree = require('../database/model/tree-model');
-const Crop = require('../database/model/crop-model');
-
-module.exports = {
+module.exports = (Species, Tree, Crop) => ({
 
     create: (req, res) => {
         new Species(req.body).save()
@@ -48,4 +44,4 @@ module.exports = {
             });
     }
 
-}
+});

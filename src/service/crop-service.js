@@ -1,6 +1,4 @@
-const Crop = require('../database/model/crop-model');
-
-module.exports = {
+module.exports = (Crop) => ({
 
     create: (req, res) => {
         new Crop(req.body).save().then(result => {
@@ -50,4 +48,4 @@ module.exports = {
             });
     }
 
-}
+});
