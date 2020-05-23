@@ -6,10 +6,19 @@ module.exports = (Group) => ({
         });
     },
 
-    getAll: (req, res) => {
-        Group.find().then(result => {
-            res.send(result);
-        });
+    getAll: async (req, res) => {
+        let groups = [];
+        try {
+            if (req.query.tree) {
+                groups = await Group.find({ 'trees': req.query.tree })
+            } else {
+                groups = await Group.find();
+            }
+        } catch (err) {
+            res.status(500);
+            res.send({ message: 'Houve um erro interno.' });
+        }
+        res.send(groups);
     },
 
     get: (req, res) => {
