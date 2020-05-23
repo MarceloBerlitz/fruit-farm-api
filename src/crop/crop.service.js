@@ -7,9 +7,20 @@ module.exports = (Crop, Group, Tree) => ({
     },
 
     getAll: (req, res) => {
-        Crop.find().then(result => {
-            res.send(result);
-        });
+        if (req.query.group) {
+            Group.findById(req.query.group).then(group => {
+                Crop.find().where('tree').in(group.trees).then(result => {
+                    res.send(result);
+                });
+            }).catch(err => {
+                res.status(500);
+                res.send({ message: 'Ocorreu um erro interno.' })
+            });
+        } else {
+            Crop.find().then(result => {
+                res.send(result);
+            });
+        }
     },
 
     get: (req, res) => {
@@ -17,12 +28,6 @@ module.exports = (Crop, Group, Tree) => ({
             res.send(result);
         });
     },
-
-    getByGroup: async (req, res) => {
-        const group = await Group.findById(req.param.group);
-        res.send(await Crop.find().where('tree').in(group.trees));
-    },
-
 
     edit: async (req, res) => {
         const crop = await Crop.findById(req.params.id);
