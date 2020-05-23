@@ -6,27 +6,34 @@ module.exports = (Crop, Group, Tree) => ({
         });
     },
 
-    getAll: (req, res) => {
+    getAll: async (req, res) => {
+        let crops;
         if (req.query.group) {
-            Group.findById(req.query.group).then(group => {
-                Crop.find().where('tree').in(group.trees).then(result => {
-                    res.send(result);
-                });
-            }).catch(err => {
+            try {
+            const group = await Group.findById(req.query.group);
+            crops = await Crop.find().where('tree').in(group.trees);
+            } catch (err) {
+
+                console.log({err})
+
                 res.status(500);
                 res.send({ message: 'Ocorreu um erro interno.' })
-            });
+            }
+
         } else {
-            Crop.find().then(result => {
-                res.send(result);
-            });
+            crops = await Crop.find();
         }
+
+        await Promise.all(crops.map(async crop => {
+            crop.tree = await Tree.findById(crop.tree);
+        }));
+        res.send(crops);
     },
 
-    get: (req, res) => {
-        Crop.findById(req.params.id).then(result => {
-            res.send(result);
-        });
+    get: async (req, res) => {
+        const crop = await Crop.findById(req.params.id);
+        crop.tree = await Tree.findById(crop.tree);
+        res.send(crop);
     },
 
     edit: async (req, res) => {
