@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://fruit-farm-shard-00-00-ukqma.gcp.mongodb.net:27017,fruit-farm-shard-00-01-ukqma.gcp.mongodb.net:27017,fruit-farm-shard-00-02-ukqma.gcp.mongodb.net:27017/test?ssl=true&replicaSet=fruit-farm-shard-0&authSource=admin&retryWrites=true&w=majority', 
+mongoose.connect(process.env.MONGO_URL, 
     {   
         useNewUrlParser: true,
         useUnifiedTopology: true,

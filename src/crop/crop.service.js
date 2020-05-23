@@ -1,4 +1,4 @@
-module.exports = Crop => ({
+module.exports = (Crop, Group, Tree) => ({
 
     create: (req, res) => {
         new Crop(req.body).save().then(result => {
@@ -17,6 +17,12 @@ module.exports = Crop => ({
             res.send(result);
         });
     },
+
+    getByGroup: async (req, res) => {
+        const group = await Group.findById(req.param.group);
+        res.send(await Crop.find().where('tree').in(group.trees));
+    },
+
 
     edit: async (req, res) => {
         const crop = await Crop.findById(req.params.id);
