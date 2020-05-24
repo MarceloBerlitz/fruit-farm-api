@@ -4,7 +4,7 @@ module.exports = (Species, Tree, Crop, Group) => {
 
     return ({
         create: (req, res) => {
-            speciesData.findById(req.body.species).catch(err => {
+            Species.findById(req.body.species).catch(err => {
                 res.status(404);
                 res.send({ message: 'Espécie não contrada.' });
             });
