@@ -55,7 +55,7 @@ module.exports = (Species, Tree, Crop, Group) => {
 
             await tree.save();
 
-            res.send(tree)
+            res.send(tree);
         },
 
         delete: (req, res) => {

@@ -14,15 +14,7 @@ module.exports = (Species, Tree, Crop) => ({
     },
 
     get: (req, res) => {
-
-        const id = req.params.id;
-
-        Species.findById(id).then(async species => {
-            species.trees = await Tree.find({ species: id });
-            species.crops = await Promise.all(species.trees
-                .map(tree => Crop.find({ tree: tree._id }))
-                .reduce((acc, cur) => [ ...acc, ...cur ], []));
-
+        Species.findById(req.params.id).then(species => {
             res.send(species);
         });
     },
