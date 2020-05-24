@@ -14,11 +14,11 @@ module.exports = (Group) => ({
             } else {
                 groups = await Group.find();
             }
+            res.send(groups);
         } catch (err) {
             res.status(500);
             res.send({ message: 'Houve um erro interno.' });
         }
-        res.send(groups);
     },
 
     get: (req, res) => {

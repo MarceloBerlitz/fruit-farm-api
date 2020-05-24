@@ -1,4 +1,4 @@
-module.exports = (Crop, Group, Tree) => ({
+module.exports = (Crop, Group, Tree, Species) => ({
 
     create: (req, res) => {
         new Crop(req.body).save().then(result => {
@@ -14,18 +14,23 @@ module.exports = (Crop, Group, Tree) => ({
                 crops = await Crop.find().where('tree').in(group.trees);
             } else if (req.query.tree) {
                 crops = await Crop.find({ 'tree': req.query.tree });
-            } else {
+            } else if (req.query.species) {
+                const trees = await Tree.find({ 'species': req.query.species });
+                crops = await Crop.find({ 'tree': trees.map(tree => tree._id) })
+            }
+             else {
                 crops = await Crop.find();
             }
+
+            await Promise.all(crops.map(async crop => {
+                crop.tree = await Tree.findById(crop.tree);
+            }));
+            res.send(crops);
+
         } catch (err) {
             res.status(500);
             res.send({ message: 'Ocorreu um erro interno.' })
-        }
-
-        await Promise.all(crops.map(async crop => {
-            crop.tree = await Tree.findById(crop.tree);
-        }));
-        res.send(crops);
+        }     
     },
 
     get: async (req, res) => {
