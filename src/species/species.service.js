@@ -28,7 +28,7 @@ module.exports = (Species, Tree, Crop) => ({
                     res.send();
                 } else {
                     res.status(404);
-                    res.send({ message: 'Species not found.' });
+                    res.send({ message: 'Espécie não encontrada.' });
                 }
             }).catch(err => {
                 res.status(500);

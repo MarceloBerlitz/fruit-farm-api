@@ -1,4 +1,4 @@
-module.exports = (Crop, Group, Tree, Species) => ({
+module.exports = (Crop, Group, Tree) => ({
 
     create: (req, res) => {
         new Crop(req.body).save().then(result => {

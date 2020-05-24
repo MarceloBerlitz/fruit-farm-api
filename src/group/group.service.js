@@ -1,4 +1,4 @@
-module.exports = (Group) => ({
+module.exports = Group => ({
 
     create: (req, res) => {
         new Group(req.body).save().then(result => {
