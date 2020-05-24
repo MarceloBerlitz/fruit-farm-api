@@ -30,6 +30,8 @@ module.exports = (Species, Tree, Crop, Group) => {
                     res.status(500);
                     res.send({ message: 'Ocorreu um erro interno.' })
                 });
+            } else if (req.query.species) {
+                trees = await Tree.find({ 'species': req.query.species });
             } else {
                 trees = await Tree.find().lean();
             }
